@@ -10,11 +10,15 @@ import java.util.List;
 @Repository
 public class ProductRepository {
     private List<Product> productData = new ArrayList<>();
-    private static long counter = 0;
 
     public Product create(Product product) {
         productData.add(product);
-        product.setProductId(++counter);
+        return product;
+    }
+
+    public Product edit(Product product) {
+        int idx = findIndexProduct(product.getProductId()) - 1;
+        productData.set(idx, product);
         return product;
     }
 
@@ -22,17 +26,29 @@ public class ProductRepository {
         return productData.iterator();
     }
 
-    public Product findProductById(long id) {
+    public Product findProductById(String id) {
         for (Product product : productData) {
-            if (product.getProductId() == id) {
+            if (product.getProductId().equals(id)) {
                 return product;
             }
         }
         return null;
     }
 
-    public void deleteProduct(long id) {
+    public void deleteProduct(String id) {
         Product product = findProductById(id);
         productData.remove(product);
+    }
+
+    public int findIndexProduct(String id) {
+        int count = 0;
+        for (Product product : productData) {
+            if (product.getProductId().equals(id)) {
+                break;
+            } else {
+                count++;
+            }
+        }
+        return count;
     }
 }
