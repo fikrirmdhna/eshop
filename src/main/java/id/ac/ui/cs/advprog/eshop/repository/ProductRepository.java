@@ -22,12 +22,17 @@ public class ProductRepository {
         return productData.iterator();
     }
 
-    public void deleteProduct(long id) {
+    public Product findProductById(long id) {
         for (Product product : productData) {
             if (product.getProductId() == id) {
-                productData.remove(product);
-                break;
+                return product;
             }
         }
+        return null;
+    }
+
+    public void deleteProduct(long id) {
+        Product product = findProductById(id);
+        productData.remove(product);
     }
 }
