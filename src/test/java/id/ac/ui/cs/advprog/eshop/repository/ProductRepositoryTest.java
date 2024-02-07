@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,6 +62,52 @@ class ProductRepositoryTest {
         assertEquals(product1.getProductId(), savedProduct.getProductId());
         savedProduct = productIterator.next();
         assertEquals(product2.getProductId(), savedProduct.getProductId());
+        assertFalse(productIterator.hasNext());
+    }
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product newProduct = new Product();
+        newProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        newProduct.setProductName("Sampo Cap Bango");
+        newProduct.setProductQuantity(50);
+
+        // applying name and quantity changes from newProduct to product
+        productRepository.edit(product, newProduct); 
+
+        assertEquals("Sampo Cap Bango", product.getProductName());
+        assertEquals(50, product.getProductQuantity());
+        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", product.getProductId());
+    }
+    @Test
+    void testDeleteProduct() {
+        Product product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("ab558e9f-1c39-460e-8860-71af6af63bd9");
+        product2.setProductName("Sampo Cap Bango");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+        
+        productRepository.deleteProduct(product1.getProductId()); //delete product1
+        Iterator<Product> productIterator = productRepository.findAll();
+        
+        assertTrue(productIterator.hasNext());
+        Product savedProduct = productIterator.next(); //"Sampo Cap Bango"
+
+        assertEquals(product2.getProductName(), savedProduct.getProductName());
+        assertThrows(NoSuchElementException.class, () -> {
+            productIterator.next();
+        });
         assertFalse(productIterator.hasNext());
     }
 }
