@@ -1,3 +1,6 @@
+# Tutorial 1 - Adpro C
+## Fikri Dhiya Ramadhana - 2206819533
+
 ## Reflection 1
 ### Clean Code
 Dalam tutorial ini, *clean code* yang sudah saya terapkan adalah: 
