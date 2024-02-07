@@ -16,9 +16,9 @@ public class ProductRepository {
         return product;
     }
 
-    public Product edit(Product product) {
-        int idx = findIndexProduct(product.getProductId()) - 1;
-        productData.set(idx, product);
+    public Product edit(Product product, Product newProduct) {
+        product.setProductName(newProduct.getProductName());
+        product.setProductQuantity(newProduct.getProductQuantity());
         return product;
     }
 
@@ -39,16 +39,5 @@ public class ProductRepository {
         Product product = findProductById(id);
         productData.remove(product);
     }
-
-    public int findIndexProduct(String id) {
-        int count = 0;
-        for (Product product : productData) {
-            if (product.getProductId().equals(id)) {
-                break;
-            } else {
-                count++;
-            }
-        }
-        return count;
-    }
+    
 }
