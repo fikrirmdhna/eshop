@@ -38,4 +38,6 @@ jobs:
                 -Dsonar.projectKey=fikrirmdhna_tutorial-2
                 -Dsonar.organization=fikrirmdhna
                 -Dsonar.java.binaries=.
+                -Dsonar.sources=src/main/java
+                -Dsonar.tests=src/test/java
        
