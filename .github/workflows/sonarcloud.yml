@@ -23,4 +23,5 @@ jobs:
             args:
                 -Dsonar.projectKey=fikrirmdhna_tutorial-2
                 -Dsonar.organization=fikrirmdhna
+                -Dsonar.java.binaries=.
        
