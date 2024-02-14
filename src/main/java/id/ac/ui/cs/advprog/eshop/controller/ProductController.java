@@ -33,20 +33,13 @@ public class ProductController {
     @GetMapping("/edit/{productId}")
     public String editProductPage(@PathVariable("productId") String productId, Model model) {
         Product product = service.getProductById(productId);
-        
-        if (product == null) {
-            return "redirect:../list";
-        }
-        
         model.addAttribute("product", product);
         return "editProduct";
     }
     
     @PostMapping("/edit/{productId}")
     public String editProductPost(@ModelAttribute Product product, Model model, @PathVariable("productId") String productId) {
-        if (productId.equals(product.getProductId())) {
-            service.edit(product);
-        }
+        service.edit(product);
         return "redirect:list";
     }
 

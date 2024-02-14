@@ -27,12 +27,13 @@ public class ProductRepository {
     }
 
     public Product findProductById(String id) {
+        Product thisProduct = null;
         for (Product product : productData) {
             if (product.getProductId().equals(id)) {
-                return product;
+                thisProduct = product;
             }
         }
-        return null;
+        return thisProduct;
     }
 
     public void deleteProduct(String id) {
