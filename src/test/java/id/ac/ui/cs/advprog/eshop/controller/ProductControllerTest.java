@@ -69,7 +69,7 @@ public class ProductControllerTest {
                 .param("productDescription", "Test Description")
                 .param("productId", productId))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("list"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("../list"));
 
         verify(productService, times(1)).edit(any(Product.class));
     }
