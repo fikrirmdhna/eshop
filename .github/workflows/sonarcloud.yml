@@ -14,18 +14,6 @@ jobs:
           distribution: "temurin" # Alternative distribution options are available
           java-version: "21"
           cache: "gradle" 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze
         uses: sonarsource/sonarcloud-github-action@master
         env:
