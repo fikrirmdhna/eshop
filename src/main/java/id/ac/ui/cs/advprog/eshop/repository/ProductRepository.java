@@ -17,8 +17,7 @@ public class ProductRepository {
     }
 
     public Product edit(Product product, Product newProduct) {
-        product.setProductName(newProduct.getProductName());
-        product.setProductQuantity(newProduct.getProductQuantity());
+        product.edit(newProduct);
         return product;
     }
 

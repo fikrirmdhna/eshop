@@ -30,9 +30,7 @@ public class CarRepository {
 
     public Car update(String id,  Car updatedCar) {
         Car selectedCar = findById(id);
-        selectedCar.setCarName(updatedCar.getCarName());
-        selectedCar.setCarColor(updatedCar.getCarColor());
-        selectedCar.setCarQuantity(updatedCar.getCarQuantity());
+        selectedCar.update(updatedCar);
         return selectedCar;
     }
 

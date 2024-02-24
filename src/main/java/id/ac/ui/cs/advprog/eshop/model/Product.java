@@ -14,4 +14,11 @@ public class Product {
     public Product() {
         this.setProductId(UUID.randomUUID().toString());
     }
+
+    public Product edit(Product updatedProduct) {
+        this.setProductName(updatedProduct.getProductName());
+        this.setProductQuantity(updatedProduct.getProductQuantity());
+
+        return this;
+    }
 }

@@ -15,4 +15,12 @@ public class Car {
     public Car() {
         this.setCarId(UUID.randomUUID().toString());
     }
+
+    public Car update(Car updatedCar) {
+        this.setCarName(updatedCar.getCarName());
+        this.setCarColor(updatedCar.getCarColor());
+        this.setCarQuantity(updatedCar.getCarQuantity());
+
+        return this;
+    }
 }
