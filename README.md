@@ -2,7 +2,7 @@
 ## Fikri Dhiya Ramadhana - 2206819533
 ## Advanced Programming C / MSG
 
-Link to [eshop](https://adpro-tutorial-fikrirmdhna-adpro.koyeb.app/product/list) app
+Link to [eshop](https://adpro-tutorial-fikrirmdhna-adpro.koyeb.app/) app
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/new_code?id=fikrirmdhna_tutorial-2)
 
@@ -33,9 +33,11 @@ Dalam tutorial ini, *secure coding* yang sudah saya terapkan adalah:
 
 2. Jika diminta untuk membuat java class baru dengan setup dan variabel yang sama seperti CreateProductFunctionalTest, hal ini akan membuat kerapihan kode berkurang karena terdapat setup dan variabel yang sama dan seharusnya tidak perlu ditulis kembali. Hanya perlu digunakan kembali untuk membuat test case yang sesuai permintaan.
 </details>
-</br>
 
 ## Tutorial 2
+<details>
+<summary>Expand</summary>
+
 ### Reflection
 1.  List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
 
@@ -45,3 +47,26 @@ Dalam tutorial ini, *secure coding* yang sudah saya terapkan adalah:
 
 2. Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)! 
 * Menurut saya, CI/CD yang sudah saya implementasikan telah memenuhi konsep yang ada sebagai contoh penggunaan GitHub Workflows sebagai automisasi *integration* dan *deployment* saat kita melakukan perubahan *push* atau *pull*. Saat melakukan perubahan perubahan pada branch, kode akan diuji yang ada di ci.yml, scorecard.yml, dan sonarcloud.yml. Dan ketika ketiga pengecekan tersebut berhasil, kode dapat digabungkan ke main sehingga dapat dideploy dengan PaaS Koyeb dan diperiksa keamanan kode dengan scorecard.yml yang dimana akan terbentuk suatu siklus *software development life*. 
+</details>
+
+## Tutorial 3
+### Reflection
+
+1) Explain what principles you apply to your project!
+    * Single Responsibility Principle (SRP)  
+    Prinsip SRP yang saya sudah terapkan adalah pemisahan kode Controller untuk masing - masing page html, yaitu CarController, HomeController, dan ProductController sehingga sebuah kelas memiliki satu tugas dengan tujuan tertentu.
+
+    * Open/Closed Principle (OCP)  
+    Prinsip OCP yang sudah saya terapkan adalah membuat update/edit suatu model Car/Product di dalam model secara implisit sehingga perubahan hanya dapat diakses untuk instance tersebut. Dan jika ingin membuat subclass dari instance tersebut tetap dapat dilakukan update sesuai yang diinginkan oleh subclass.
+
+    * Interface Segregation Principle (ISP)  
+    Pembuatan CarService dan ProductService yang diimplementasikan sesuai fungsi yang diinginkan dari suatu concrete class, yaitu CarServiceImpl dan ProductServiceImpl.
+
+    * Dependency Inversions Principle (DIP)  
+    Mengganti Autowired CarServiceImpl di dalam file CarController.java menjadi CarService agar tidak terjadi coupling karena modul tingkat tinggi tidak boleh bergantung pada modul yang tingkatnya lebih rendah. 
+
+2) Explain the advantages of applying SOLID principles to your project with examples.  
+    Manfaat dari penerapan Prinsip SOLID adalah membantu dalam menciptakan struktur kode yang lebih teratur dan mudah dimengerti. Selain itu, prinsip SOLID mempermudah penambahan fitur baru tanpa harus mengubah bagian-bagian kode yang sudah ada, mengurangi risiko potensial masalah dalam kode, dan memudahkan proses pengujian karena setiap komponen dapat diuji secara terpisah. Penerapan SOLID juga memastikan bahwa kode yang kita tulis dapat lebih mudah dimengerti, memfasilitasi pengembangan lebih lanjut oleh pengembang lain.
+
+3) Explain the disadvantages of not applying SOLID principles to your project with examples.  
+    Kekurangan dalam penerapan SOLID Principle, salah satunya adalah kecenderungan membuat kode menjadi lebih kompleks dan rigid. Sebagai contoh, jika ada kebutuhan untuk mengubah fungsionalitas suatu kelas, maka kelas abstrak atau antarmuka yang memiliki tanggung jawab terkait juga harus diubah. Selain itu, jika SOLID Principles tidak diterapkan dengan baik, dapat menjadi sulit bagi pengembang lain untuk menggunakan dan mengembangkan kode tersebut.
