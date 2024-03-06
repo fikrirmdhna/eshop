@@ -4,6 +4,8 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
+import id.ac.ui.cs.advprog.eshop.model.PaymentWithCOD;
+import id.ac.ui.cs.advprog.eshop.model.PaymentWithVoucher;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,14 +47,14 @@ class PaymentRepositoryTest {
         Map<String, String> paymentDataVoucher  = new HashMap<>();
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment voucher = new Payment("4084c620-013b-4415-b086-08f7b089408d", PaymentMethod.VOUCHER.getValue(), orders.get(0), paymentDataVoucher);
+        PaymentWithVoucher voucher = new PaymentWithVoucher("4084c620-013b-4415-b086-08f7b089408d", PaymentMethod.VOUCHER.getValue(), orders.get(0), paymentDataVoucher);
         paymentList.add(voucher);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
         paymentDataCashOnDelivery.put("address", "Universitas Indonesia");
         paymentDataCashOnDelivery.put("deliveryFee", "2000");
 
-        Payment cashOnDelivery = new Payment("ec556e97-10a5-4d48-a068-d45c6fca71c1", PaymentMethod.COD.getValue(), orders.get(0), paymentDataCashOnDelivery);
+        PaymentWithCOD cashOnDelivery = new PaymentWithCOD("ec556e97-10a5-4d48-a068-d45c6fca71c1", PaymentMethod.COD.getValue(), orders.get(0), paymentDataCashOnDelivery);
         paymentList.add(cashOnDelivery);
     }
 

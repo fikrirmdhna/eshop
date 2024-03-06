@@ -5,6 +5,8 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
+import id.ac.ui.cs.advprog.eshop.model.PaymentWithCOD;
+import id.ac.ui.cs.advprog.eshop.model.PaymentWithVoucher;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -57,13 +59,13 @@ class PaymentServiceTest {
 
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
-        Payment payment1 = new Payment("4074c620-013b-4414-b085-08f7b08940payment1", "VOUCHER", orderList.get(0), paymentData);
+        PaymentWithVoucher payment1 = new PaymentWithVoucher("4074c620-013b-4414-b085-08f7b08940payment1", "VOUCHER", orderList.get(0), paymentData);
         paymentList.add(payment1);
 
         paymentData = new HashMap<>();
         paymentData.put("address", "Universitas Indonesia");
         paymentData.put("deliveryFee", "2000");
-        Payment payment2 = new Payment("ec556e96-10a5-4d47-a068-d45c6fca71c0", "COD", orderList.get(0), paymentData);
+        PaymentWithCOD payment2 = new PaymentWithCOD("ec556e96-10a5-4d47-a068-d45c6fca71c0", "COD", orderList.get(0), paymentData);
         paymentList.add(payment2);
     }
 
@@ -98,7 +100,6 @@ class PaymentServiceTest {
         paymentData.put("voucherCode","ESHOP1234ABC5678");
         Payment payment1 = new Payment("9a72b490-9853-4ae9-8927-97f459989e8e", "VOUCHER", orderList.get(0), paymentData);
 
-        paymentService.setStatus(payment1, PaymentStatus.PENDING.getValue());
         assertEquals(PaymentStatus.PENDING.getValue(),payment1.getStatus());
         paymentService.setStatus(payment1, PaymentStatus.SUCCESS.getValue());
         assertEquals(PaymentStatus.SUCCESS.getValue(),payment1.getStatus());
@@ -118,9 +119,11 @@ class PaymentServiceTest {
         Order order = new Order("11c590d2-b148-45bd-9012-2b808c85c3b7", 
             productList, 1708560000L, "Bambang Sutejo");
         Map<String, String> paymentData = new HashMap<>();
-        Payment payment = new Payment(UUID.randomUUID().toString(), "COD", order, paymentData);
+        paymentData.put("address", "Kukusan");
+        paymentData.put("deliveryFee", "5000");
+        
+        PaymentWithCOD payment = new PaymentWithCOD(UUID.randomUUID().toString(), "COD", order, paymentData);
 
-        paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
         assertEquals(OrderStatus.SUCCESS.getValue(), payment.getOrder().getStatus());
     }
 
@@ -128,10 +131,13 @@ class PaymentServiceTest {
     void testUpdateOrderStatusWhenPaymentRejected() {
         Order order = new Order("11c590d2-b148-45bd-9012-2b808c85c3b7", productList, 1708560000L, "Bambang Sutejo");
         Map<String, String> paymentData = new HashMap<>();
-        Payment payment = new Payment(UUID.randomUUID().toString(), "COD", order, paymentData);
+        paymentData.put("address", " ");
+        paymentData.put("deliveryFee", " ");
 
-        paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
+        PaymentWithCOD payment = new PaymentWithCOD(UUID.randomUUID().toString(), "COD", order, paymentData);
+
         assertEquals(OrderStatus.FAILED.getValue(), payment.getOrder().getStatus());
+        paymentData.clear();
     }
 
     @Test
