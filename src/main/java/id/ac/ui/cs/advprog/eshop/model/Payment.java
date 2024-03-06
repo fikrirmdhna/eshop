@@ -15,7 +15,7 @@ public class Payment {
     Order order;
     Map<String, String> paymentData;
 
-    public Payment(String id, String method, Order order, Map<String, String> paymentData, String status) {
+    public Payment(String id, String method, Order order, Map<String, String> paymentData) {
         this.id = id;
         this.method = method;
         this.setOrder(order);
@@ -26,14 +26,6 @@ public class Payment {
         } else {
             this.setStatus("REJECTED");
         }
-    }
-
-    public Payment(String id, String method, Order order, Map<String, String> paymentData) {
-        this.id = id;
-        this.method = method;
-        this.setOrder(order);
-        this.setPaymentData(paymentData);
-        this.status = PaymentStatus.PENDING.getValue();
     }
 
     public void setOrder(Order order) {
@@ -82,7 +74,9 @@ public class Payment {
             }
         }
 
-        if (address != null && deliveryFee != null) {
+        if ((address != null && deliveryFee != null) 
+             || (!address.isBlank() && !deliveryFee.isBlank())) 
+        {
             return true;
         } 
 

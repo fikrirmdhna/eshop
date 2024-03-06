@@ -53,7 +53,7 @@ class PaymentTest {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         
         Payment testPayment = new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-            PaymentMethod.VOUCHER.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
+            PaymentMethod.VOUCHER.getValue(), order, paymentData);
         assertSame(testPayment.getOrder(), order);
         assertEquals(PaymentMethod.VOUCHER.getValue(), testPayment.getMethod());
         assertEquals("e6e60d39-41fb-4ff0-8631-3491e483c180", testPayment.getId());
@@ -67,6 +67,7 @@ class PaymentTest {
 
         Payment testPayment = new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
             PaymentMethod.VOUCHER.getValue(), order, paymentData);
+        testPayment.setStatus(PaymentStatus.PENDING.getValue());
         assertSame(testPayment.getOrder(), order);
         assertEquals(PaymentMethod.VOUCHER.getValue(), testPayment.getMethod());
         assertEquals("e6e60d39-41fb-4ff0-8631-3491e483c180", testPayment.getId());
@@ -79,7 +80,7 @@ class PaymentTest {
         paymentData.put("voucherCode", "ESHOP12342ABC56789");
 
         Payment testPayment = new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-            PaymentMethod.VOUCHER.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
+            PaymentMethod.VOUCHER.getValue(), order, paymentData);
         assertSame(testPayment.getOrder(), order);
         assertEquals(PaymentMethod.VOUCHER.getValue(), testPayment.getMethod());
         assertEquals("e6e60d39-41fb-4ff0-8631-3491e483c180", testPayment.getId());
@@ -89,11 +90,11 @@ class PaymentTest {
 
     @Test
     void testCreatePaymentVoucherInvalidStatus() {
-        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        paymentData.put("voucherCode", "ESHOP1234ABC56789");
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-                "", order, paymentData, "IniKodeVoucherAbal");
+                "", order, paymentData);
         });
 
         paymentData.clear();
@@ -101,11 +102,11 @@ class PaymentTest {
 
     @Test
     void testCreatePaymentVoucherNullStatus() {
-        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        paymentData.put("voucherCode", null);
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-                "", order, paymentData, null);
+                "", order, paymentData);
         });
 
         paymentData.clear();
@@ -117,7 +118,7 @@ class PaymentTest {
         paymentData.put("deliveryFee", "2000");
 
         Payment testPayment = new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-            PaymentMethod.COD.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
+            PaymentMethod.COD.getValue(), order, paymentData);
         assertSame(testPayment.getOrder(), order);
         assertEquals(PaymentMethod.COD.getValue(), testPayment.getMethod());
         assertEquals("e6e60d39-41fb-4ff0-8631-3491e483c180", testPayment.getId());
@@ -132,6 +133,7 @@ class PaymentTest {
 
         Payment testPayment = new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
             PaymentMethod.COD.getValue(), order, paymentData);
+        testPayment.setStatus(PaymentStatus.PENDING.getValue());
         assertSame(testPayment.getOrder(), order);
         assertEquals(PaymentMethod.COD.getValue(), testPayment.getMethod());
         assertEquals("e6e60d39-41fb-4ff0-8631-3491e483c180", testPayment.getId());
@@ -145,7 +147,7 @@ class PaymentTest {
         paymentData.put("deliveryFee", null);
 
         Payment testPayment = new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-            PaymentMethod.COD.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
+            PaymentMethod.COD.getValue(), order, paymentData);
         assertSame(testPayment.getOrder(), order);
         assertEquals(PaymentMethod.COD.getValue(), testPayment.getMethod());
         assertEquals("e6e60d39-41fb-4ff0-8631-3491e483c180", testPayment.getId());
@@ -160,7 +162,7 @@ class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-                "", order, paymentData, "IniTestAja");
+                "", order, paymentData);
         });
 
         paymentData.clear();
@@ -169,11 +171,11 @@ class PaymentTest {
     @Test
     void testCreatePaymentCashOnDeliveryNullStatus() {
         paymentData.put("address", "Universitas Indonesia");
-        paymentData.put("deliveryFee", "2000");
+        paymentData.put("deliveryFee", null);
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("e6e60d39-41fb-4ff0-8631-3491e483c180", 
-                "", order, paymentData, null);
+                "", order, paymentData);
         });
 
         paymentData.clear();
@@ -286,5 +288,4 @@ class PaymentTest {
         
         paymentData.clear();
     }
-
 }

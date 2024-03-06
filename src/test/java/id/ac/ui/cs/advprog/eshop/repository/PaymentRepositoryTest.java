@@ -45,14 +45,14 @@ class PaymentRepositoryTest {
         Map<String, String> paymentDataVoucher  = new HashMap<>();
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment voucher = new Payment("4084c620-013b-4415-b086-08f7b089408d", PaymentMethod.VOUCHER.getValue(), orders.get(0), paymentDataVoucher, PaymentStatus.PENDING.getValue());
+        Payment voucher = new Payment("4084c620-013b-4415-b086-08f7b089408d", PaymentMethod.VOUCHER.getValue(), orders.get(0), paymentDataVoucher);
         paymentList.add(voucher);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
         paymentDataCashOnDelivery.put("address", "Universitas Indonesia");
         paymentDataCashOnDelivery.put("deliveryFee", "2000");
 
-        Payment cashOnDelivery = new Payment("ec556e97-10a5-4d48-a068-d45c6fca71c1", PaymentMethod.COD.getValue(), orders.get(0), paymentDataCashOnDelivery, PaymentStatus.PENDING.getValue());
+        Payment cashOnDelivery = new Payment("ec556e97-10a5-4d48-a068-d45c6fca71c1", PaymentMethod.COD.getValue(), orders.get(0), paymentDataCashOnDelivery);
         paymentList.add(cashOnDelivery);
     }
 
@@ -74,7 +74,8 @@ class PaymentRepositoryTest {
         Payment payment1 = paymentList.get(1);
         paymentRepository.save(payment1);
 
-        Payment payment2 = new Payment(payment1.getId(), payment1.getMethod(), payment1.getOrder(), payment1.getPaymentData(), PaymentStatus.PENDING.getValue());
+        Payment payment2 = new Payment(payment1.getId(), payment1.getMethod(), payment1.getOrder(), payment1.getPaymentData());
+        payment2.setStatus(PaymentStatus.PENDING.getValue());
 
         assertThrows(IllegalStateException.class,()->{
             paymentRepository.save(payment2);
