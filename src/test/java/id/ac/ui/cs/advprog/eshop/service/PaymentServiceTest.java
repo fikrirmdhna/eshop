@@ -153,9 +153,9 @@ class PaymentServiceTest {
     }
 
     @Test
-    void testGetAllPayment() {
+    void testGetAllPayments() {
         doReturn(paymentList).when(paymentRepository).getAllPayments();
-        List<Payment> resultPayments = paymentService.getAllPayment();
+        List<Payment> resultPayments = paymentService.getAllPayments();
 
         assertNotNull(resultPayments);
         assertEquals(paymentList.size(), resultPayments.size());
