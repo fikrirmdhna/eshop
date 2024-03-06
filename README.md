@@ -50,6 +50,9 @@ Dalam tutorial ini, *secure coding* yang sudah saya terapkan adalah:
 </details>
 
 ## Tutorial 3
+<details>
+<summary>Expand</summary>
+
 ### Reflection
 
 1) Explain what principles you apply to your project!
@@ -70,3 +73,16 @@ Dalam tutorial ini, *secure coding* yang sudah saya terapkan adalah:
 
 3) Explain the disadvantages of not applying SOLID principles to your project with examples.  
     Kekurangan dalam penerapan SOLID Principle, salah satunya adalah kecenderungan membuat kode menjadi lebih kompleks dan rigid. Sebagai contoh, jika ada kebutuhan untuk mengubah fungsionalitas suatu kelas, maka kelas abstrak atau antarmuka yang memiliki tanggung jawab terkait juga harus diubah. Selain itu, jika SOLID Principles tidak diterapkan dengan baik, dapat menjadi sulit bagi pengembang lain untuk menggunakan dan mengembangkan kode tersebut.
+</details>
+
+## Tutorial 4
+### Reflection
+1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.  
+    * Menurut saya dengan adanya TDD (Test-Driven Development) memudahkan kita dalam mengatur ekspektasi dari program yang kita buat karena semua algoritma dibuat berdasarkan test yang ada sehingga menjadi lebih terarah.
+
+2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.  
+    * Fast: Dalam pembuatan test ini sudah digunakannya InjectMocks dan Mock dalam Service Tests sehingga sudah berjalan dengan cepat.
+    * Isolated/Independent: Dalam pembuatan test ini sudah menggunakan @BeforeEach untuk melakukan setup sebelum test dijalankan.
+    * Repeatable: Setiap test yang diimplementasikan di sini sudah bisa dijalankan berulang - ulang dengan konsisten karena sudah terisolasi. 
+    * Self-Validating: Test yang diimplementasi sudah menggunakan assertions untuk mengetahui output apakah sudah sesuai dengan output yang diinginkan dari test tersebut tanpa interpretasi secara manual.
+    * Thorough/Timely: Menurut saya, test yang saya buat sudah mencakupi semua unhappy path menjadi happy path untuk mencegah suatu error.
