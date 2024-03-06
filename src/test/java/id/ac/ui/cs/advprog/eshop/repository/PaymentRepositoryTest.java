@@ -4,7 +4,6 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +15,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PaymentRepositoryTest {
-    PaymentRepositoryTest paymentRepository;
+    PaymentRepository paymentRepository;
     List<Payment> paymentList;
 
     @BeforeEach
     void setup() {
-        paymentRepository = new PaymentRepositoryTest();
+        paymentRepository = new PaymentRepository();
         paymentList = new ArrayList<>();
         
         List<Product> products = new ArrayList<>();
@@ -42,17 +41,17 @@ class PaymentRepositoryTest {
             products, 1708570000L, "Bambang Sudrajat");
         orders.add(order3);
 
-        Map<String, String> paymentVoucherData  = new HashMap<>();
-        paymentVoucherData.put("voucherCode", "ESHOP1234ABC5678");
+        Map<String, String> paymentDataVoucher  = new HashMap<>();
+        paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment voucher = new Payment("4084c620-013b-4415-b086-08f7b089408d", "VOUCHER", orders.get(0), paymentVoucherData, PaymentStatus.PENDING.getValue());
+        Payment voucher = new Payment("4084c620-013b-4415-b086-08f7b089408d", "VOUCHER", orders.get(0), paymentDataVoucher, PaymentStatus.PENDING.getValue());
         paymentList.add(voucher);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
         paymentDataCashOnDelivery.put("address", "Universitas Indonesia");
         paymentDataCashOnDelivery.put("deliveryFee", "2000");
 
-        Payment cashOnDelivery = new Payment("ec556e97-10a5-4d48-a068-d45c6fca71c1", null, orders.get(0), paymentDataCashOnDelivery);
+        Payment cashOnDelivery = new Payment("ec556e97-10a5-4d48-a068-d45c6fca71c1", "COD", orders.get(0), paymentDataCashOnDelivery, PaymentStatus.PENDING.getValue());
         paymentList.add(cashOnDelivery);
     }
 
@@ -111,7 +110,7 @@ class PaymentRepositoryTest {
             paymentRepository.save(pay);
         }
 
-        List<Payment> getPaymentList = paymentRepository.getAllPaymentList();
+        List<Payment> getPaymentList = paymentRepository.getAllPayments();
         assertEquals(paymentList.size(), getPaymentList.size());
     }
 }

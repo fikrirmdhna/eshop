@@ -11,7 +11,26 @@ import java.util.ArrayList;
 public class PaymentRepository {
     private List<Payment> paymentData = new ArrayList<>();
 
-    public Payment save(Payment payment) {return null;}
-    public Payment findById(String id) {return null;}
-    public List<Payment> getAllPaymentList() {return null;}
+    public Payment save(Payment payment) {
+        for (Payment paymentCheck: paymentData){
+            if (paymentCheck.getId().equals(payment.getId())){
+                throw new IllegalStateException("Id is already exist");
+            } 
+        }
+        paymentData.add(payment);
+        return payment;
+    }
+
+    public Payment findById(String id) {
+        for (Payment paymentCheck: paymentData){
+            if (paymentCheck.getId().equals(id)){
+                return paymentCheck;
+            } 
+        }
+        return null;
+    }
+
+    public List<Payment> getAllPayments() {
+        return new ArrayList<>(paymentData);
+    }
 }

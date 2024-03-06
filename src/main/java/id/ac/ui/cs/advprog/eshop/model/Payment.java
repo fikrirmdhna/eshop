@@ -20,7 +20,12 @@ public class Payment {
         this.method = method;
         this.setOrder(order);
         this.setPaymentData(paymentData);
-        this.setStatus(status);
+        
+        if (voucherChecker(paymentData)) {
+            this.setStatus("SUCCESS");
+        } else {
+            this.setStatus("REJECTED");
+        }
     }
 
     public Payment(String id, String method, Order order, Map<String, String> paymentData) {
@@ -48,9 +53,39 @@ public class Payment {
     }
 
     public void setPaymentData(Map<String, String> paymentData) {
-        if (PaymentMethod.contains(this.method)){
+        if (!PaymentMethod.contains(this.method)){
             throw new IllegalArgumentException("Can't Specify the Method");
         }
-        this.paymentData = null;
+        this.paymentData = paymentData;
+    }
+
+    public boolean voucherChecker(Map<String, String> paymentData){
+        String voucherCode = paymentData.get("voucherCode");
+
+        String address = paymentData.get("address");
+        String deliveryFee = paymentData.get("deliveryFee");
+
+        if (voucherCode!=null) {
+            if(voucherCode != null
+                && voucherCode.length() == 16
+                && voucherCode.startsWith("ESHOP")) 
+            {
+                int counterNum = 0; 
+                for (int i = 0; i < voucherCode.length(); i++) {
+                    if (Character.isDigit(voucherCode.charAt(i))) {
+                        counterNum++;
+                    }
+                }
+                if (counterNum == 8) {
+                    return true;
+                }
+            }
+        }
+
+        if (address != null && deliveryFee != null) {
+            return true;
+        } 
+
+        return false;
     }
 }
